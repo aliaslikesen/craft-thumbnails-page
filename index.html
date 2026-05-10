@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRAFT MINIATURKI — Najlepsze miniaturki z Minecraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ══ THEMES ══ */
+:root {
+  --bg:      #ffffff;
+  --fg:      #000000;
+  --card-bg: #f0f0f0;
+  --border:  rgba(0,0,0,0.14);
+  --muted:   rgba(0,0,0,0.44);
+  --nav-bg:  rgba(255,255,255,0.93);
+}
+[data-theme="dark"] {
+  --bg:      #0a0a0a;
+  --fg:      #f2f2f2;
+  --card-bg: #141414;
+  --border:  rgba(255,255,255,0.11);
+  --muted:   rgba(255,255,255,0.38);
+  --nav-bg:  rgba(10,10,10,0.95);
+}
+[data-theme="night"] {
+  --bg:      #050508;
+  --fg:      #b8b8b8;
+  --card-bg: #0d0d11;
+  --border:  rgba(184,184,184,0.1);
+  --muted:   rgba(184,184,184,0.35);
+  --nav-bg:  rgba(5,5,8,0.97);
+}
+[data-theme="contrast"] {
+  --bg:      #000000;
+  --fg:      #ffffff;
+  --card-bg: #111111;
+  --border:  rgba(255,255,255,0.38);
+  --muted:   rgba(255,255,255,0.6);
+  --nav-bg:  rgba(0,0,0,0.99);
+}
+
+/* ══ BASE ══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Space Mono',monospace;
+  background:var(--bg);color:var(--fg);
+  transition:background .3s,color .3s;overflow-x:hidden;
+}
+::selection{background:var(--fg);color:var(--bg);}
+img{display:block;}
+
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:var(--nav-bg);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;height:58px;
+}
+.nav-left{display:flex;align-items:center;gap:2.5rem;}
+.nav-logo{text-decoration:none;}
+.nav-logo img{height:32px;}
+.nav-logo-fb{
+  font-family:'Bebas Neue',sans-serif;font-size:1.5rem;
+  letter-spacing:.1em;color:var(--fg);display:none;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--fg);text-decoration:none;opacity:.5;transition:opacity .2s;
+}
+.nav-links a:hover{opacity:1;}
+.nav-right{display:flex;align-items:center;gap:.6rem;}
+.theme-switcher{display:flex;gap:.3rem;}
+.theme-btn{
+  width:26px;height:26px;border:1px solid var(--border);
+  background:none;color:var(--fg);cursor:pointer;font-size:.65rem;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.theme-btn:hover,.theme-btn.active{background:var(--fg);color:var(--bg);border-color:var(--fg);}
+.btn-reg{
+  background:none;border:1px solid var(--fg);color:var(--fg);
+  font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;
+  text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:all .2s;
+}
+.btn-reg:hover{background:var(--fg);color:var(--bg);}
+
+/* ══ BUTTONS ══ */
+.btn-s{
+  background:var(--fg);color:var(--bg);border:none;
+  font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;padding:.75rem 1.8rem;cursor:pointer;
+  transition:opacity .2s,transform .2s;display:inline-block;text-decoration:none;
+}
+.btn-s:hover{opacity:.75;transform:translateY(-1px);}
+.btn-o{
+  background:none;border:1px solid var(--fg);color:var(--fg);
+  font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;padding:.75rem 1.8rem;cursor:pointer;
+  transition:all .2s;display:inline-block;text-decoration:none;
+}
+.btn-o:hover{background:var(--fg);color:var(--bg);}
+
+/* ══ HERO ══ */
+#hero{
+  position:relative;min-height:100vh;padding-top:58px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;text-align:center;
+}
+.hero-video{position:absolute;inset:0;z-index:0;object-fit:cover;width:100%;height:100%;}
+.hero-ov{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.73);}
+.hero-ct{position:relative;z-index:2;padding:2rem 1.5rem;}
+.hero-ey{
+  font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-bottom:.9rem;
+  display:flex;align-items:center;justify-content:center;gap:.8rem;
+}
+.hero-ey::before,.hero-ey::after{content:'';width:36px;height:1px;background:rgba(255,255,255,.28);}
+h1.hero-t{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4.5rem,13vw,10rem);
+  color:#fff;line-height:.88;letter-spacing:.04em;margin-bottom:1.2rem;
+}
+.hero-sub{
+  font-size:clamp(.8rem,1.6vw,.95rem);color:rgba(255,255,255,.72);
+  margin-bottom:.6rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.8;
+}
+#dynamic-msg{
+  font-size:.68rem;letter-spacing:.08em;
+  color:rgba(255,255,255,.88);margin-bottom:2.5rem;min-height:1.4em;font-style:italic;
+}
+.hero-btns{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.hero-btns .btn-s{background:#fff;color:#000;}
+.hero-btns .btn-o{border-color:#fff;color:#fff;}
+.hero-btns .btn-o:hover{background:#fff;color:#000;}
+.badge-h{
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.18em;
+  color:#fff;border:1px solid rgba(255,255,255,.45);padding:.65rem 1.4rem;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{border-color:rgba(255,255,255,.2);}50%{border-color:rgba(255,255,255,.9);}}
+
+/* ══ SECTION WRAP ══ */
+.sw{padding:7rem 4rem;}
+.sw.alt{background:var(--card-bg);}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:.8rem;flex-wrap:wrap;}
+.s-lbl{font-size:.56rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);color:var(--fg);line-height:1;letter-spacing:.03em;}
+.s-rule{width:100%;height:1px;background:var(--border);margin-bottom:3.5rem;}
+
+/* ══ PORTFOLIO ══ */
+.port-desc{max-width:620px;font-size:.76rem;line-height:2.1;color:var(--muted);margin-bottom:2.5rem;}
+.port-desc strong{color:var(--fg);}
+.slider-ctrl{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;flex-wrap:wrap;gap:.75rem;
+}
+.slider-hint{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.slider-arrows{display:flex;gap:.4rem;}
+.sarrow{
+  width:38px;height:38px;border:1px solid var(--border);
+  background:none;color:var(--fg);cursor:pointer;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.sarrow:hover{background:var(--fg);color:var(--bg);}
+
+img {
+    -webkit-user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;           /* opcjonalnie – jeśli obrazki mają być "przezroczyste" dla myszki */
+}
+
+/* Jeśli chcesz tylko wyłączyć drag, ale zostawić klikanie */
+img {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+
+
+/* Outer clips overflow, provides padding for scale effect */
+.slider-outer{
+  position:relative;width:100%;overflow:hidden;cursor:grab;
+  user-select:none;padding:28px 0 36px;
+}
+.slider-outer:active{cursor:grabbing;}
+.slider-track{
+  display:flex;gap:18px;
+  transition:transform .4s cubic-bezier(.25,.46,.45,.94);
+  will-change:transform;
+}
+.slide-item{
+  flex:0 0 604px;height:339.75px;overflow:hidden;
+  border:1px solid var(--border);position:relative;
+  transition:transform .35s,box-shadow .35s,border-color .35s;
+  background:var(--card-bg);
+}
+.slide-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.slide-item:hover img{transform:scale(1.04);}
+.slide-item.is-active{
+  transform:scale(1.09);
+  box-shadow:0 18px 64px rgba(0,0,0,.28);
+  border-color:var(--fg);z-index:5;
+}
+[data-theme="dark"] .slide-item.is-active,
+[data-theme="night"] .slide-item.is-active,
+[data-theme="contrast"] .slide-item.is-active{box-shadow:0 18px 64px rgba(255,255,255,.1);}
+.slide-ph{
+  width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.4rem;
+}
+.slide-ph-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--muted);line-height:1;}
+.slide-ph-l{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+
+.slider-dots{display:flex;gap:.45rem;justify-content:center;margin-top:1.5rem;}
+.sdot{width:6px;height:6px;background:var(--border);border:none;cursor:pointer;transition:all .25s;}
+.sdot.active{background:var(--fg);width:20px;}
+
+/* ══ BEFORE/AFTER ══ */
+.ba-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:2.5rem;}
+.ba-card{position:relative;overflow:hidden;border:1px solid var(--border);height:220px;}
+.ba-base{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#1a1a1a;}
+.ba-clip{position:absolute;top:0;left:0;bottom:0;overflow:hidden;z-index:2;width:50%;}
+.ba-clip img{position:absolute;top:0;left:0;height:100%;object-fit:cover;background:#444;}
+.ba-line{
+  position:absolute;top:0;bottom:0;z-index:4;left:50%;
+  transform:translateX(-50%);width:2px;background:var(--fg);
+  cursor:ew-resize;display:flex;align-items:center;justify-content:center;
+}
+.ba-handle{
+  width:30px;height:30px;background:var(--fg);color:var(--bg);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.4);
+}
+.ba-lbl{
+  position:absolute;bottom:8px;z-index:5;font-size:.5rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(0,0,0,.65);color:#fff;padding:.2rem .5rem;
+}
+.ba-lbl-b{left:8px;}.ba-lbl-a{right:8px;}
+.ba-text{max-width:680px;margin:0 auto;text-align:center;font-size:.76rem;line-height:2.2;color:var(--muted);}
+.ba-text strong{color:var(--fg);}
+
+/* ══ CENNIK ══ */
+.cennik-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border:1px solid var(--border);}
+.c-item{padding:2.5rem 1.8rem;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:.75rem;transition:background .2s;}
+.c-item:last-child{border-right:none;}
+.c-item:hover{background:var(--card-bg);}
+.c-lbl{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.c-price{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--fg);letter-spacing:.02em;}
+.c-price sub{font-size:1.1rem;vertical-align:baseline;font-family:'Space Mono',monospace;}
+.c-bottom{display:flex;align-items:center;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap;}
+.badge-c{
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.2em;
+  border:1px solid var(--fg);color:var(--fg);padding:.5rem 1.2rem;
+  animation:pulse 2.5s infinite;
+}
+
+/* ══ MODAL ══ */
+.modal-ov{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;}
+.modal-ov.open{display:flex;}
+.modal-box{background:var(--bg);border:1px solid var(--border);padding:2.5rem;max-width:380px;width:92%;position:relative;}
+.modal-x{position:absolute;top:.9rem;right:1rem;background:none;border:none;color:var(--fg);font-size:1.1rem;cursor:pointer;}
+.modal-x:hover{opacity:.6;}
+.modal-t{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.05em;margin-bottom:1.2rem;color:var(--fg);}
+.modal-b{font-size:.72rem;color:var(--muted);margin-bottom:1rem;}
+.modal-b strong{color:var(--fg);font-size:1.1rem;}
+.modal-row{display:flex;gap:.5rem;margin-bottom:1rem;}
+.modal-in{flex:1;background:var(--card-bg);border:1px solid var(--border);color:var(--fg);font-family:'Space Mono',monospace;font-size:.78rem;padding:.6rem .9rem;outline:none;}
+.modal-in:focus{border-color:var(--fg);}
+.modal-res{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.04em;color:var(--fg);margin-bottom:1.5rem;min-height:2.2rem;}
+
+/* ══ ZAMÓW ══ */
+.zamow-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+@media(max-width:800px){.zamow-grid{grid-template-columns:1fr;}}
+.fg{margin-bottom:1.2rem;}
+.fl{display:block;font-size:.57rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem;}
+.fi,.ft{width:100%;background:var(--card-bg);border:1px solid var(--border);color:var(--fg);font-family:'Space Mono',monospace;font-size:.76rem;padding:.7rem 1rem;outline:none;transition:border-color .2s;resize:vertical;}
+.fi:focus,.ft:focus{border-color:var(--fg);}
+.ft{min-height:130px;}
+.f-ok{display:none;margin-top:1rem;padding:.9rem 1rem;border:1px solid var(--fg);color:var(--fg);font-size:.67rem;letter-spacing:.08em;}
+.z-intro{font-size:.77rem;line-height:2.1;color:var(--muted);margin-bottom:2.5rem;}
+.z-intro strong{color:var(--fg);}
+.soc-list{display:flex;flex-direction:column;gap:.65rem;}
+.soc-btn{display:flex;align-items:center;gap:1rem;padding:.9rem 1.3rem;border:1px solid var(--border);background:none;color:var(--fg);text-decoration:none;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;cursor:pointer;}
+.soc-btn:hover{border-color:var(--fg);background:var(--fg);color:var(--bg);}
+.si{width:20px;text-align:center;font-size:1rem;}
+
+/* ══ NEWSLETTER ══ */
+#newsletter{padding:5.5rem 4rem;text-align:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.nl-t{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:.06em;margin-bottom:.5rem;}
+.nl-s{font-size:.72rem;color:var(--muted);margin-bottom:2rem;}
+.nl-form{display:flex;max-width:480px;margin:0 auto;}
+.nl-in{flex:1;background:var(--card-bg);border:1px solid var(--border);border-right:none;color:var(--fg);font-family:'Space Mono',monospace;font-size:.76rem;padding:.8rem 1.1rem;outline:none;}
+.nl-in:focus{border-color:var(--fg);}
+.nl-btn{background:var(--fg);color:var(--bg);border:none;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;padding:.8rem 1.6rem;cursor:pointer;transition:opacity .2s;white-space:nowrap;}
+.nl-btn:hover{opacity:.72;}
+#nlOk{display:none;margin-top:1rem;font-size:.68rem;letter-spacing:.1em;color:var(--fg);}
+
+/* ══ FOOTER ══ */
+footer{padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);flex-wrap:wrap;gap:1rem;}
+.f-copy{font-size:.57rem;letter-spacing:.1em;color:var(--muted);}
+.f-copy a{color:var(--fg);text-decoration:none;}
+.f-links{display:flex;gap:1.5rem;list-style:none;}
+.f-links a{font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:var(--fg);}
+
+/* ══ AUTH MODAL ══ */
+.auth-ov{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.87);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;}
+.auth-ov.open{display:flex;}
+.auth-box{background:var(--bg);border:1px solid var(--border);width:400px;max-width:94vw;position:relative;}
+.auth-tabs{display:flex;border-bottom:1px solid var(--border);}
+.auth-tab{flex:1;padding:1.1rem;background:none;border:none;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;color:var(--muted);transition:all .2s;border-bottom:2px solid transparent;}
+.auth-tab.active{color:var(--fg);border-bottom-color:var(--fg);}
+.auth-xbtn{position:absolute;top:.9rem;right:1rem;background:none;border:none;color:var(--fg);font-size:1rem;cursor:pointer;}
+.auth-xbtn:hover{opacity:.6;}
+.auth-panel{display:none;padding:2rem;}
+.auth-panel.active{display:block;}
+.auth-h{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.05em;margin-bottom:.3rem;color:var(--fg);}
+.auth-s{font-size:.62rem;color:var(--muted);margin-bottom:1.8rem;}
+.a-fg{margin-bottom:1rem;}
+.a-fl{display:block;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;}
+.a-fi{width:100%;background:var(--card-bg);border:1px solid var(--border);color:var(--fg);font-family:'Space Mono',monospace;font-size:.76rem;padding:.62rem .9rem;outline:none;transition:border-color .2s;}
+.a-fi:focus{border-color:var(--fg);}
+.auth-sep{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;}
+.auth-sep::before,.auth-sep::after{content:'';flex:1;height:1px;background:var(--border);}
+.auth-sep span{font-size:.58rem;letter-spacing:.12em;color:var(--muted);}
+.auth-foot{font-size:.6rem;color:var(--muted);text-align:center;margin-top:.8rem;}
+.auth-foot a{color:var(--fg);text-decoration:none;}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:768px){
+  nav{padding:0 1rem;}
+  .nav-links{display:none;}
+  .sw{padding:4rem 1.5rem;}
+  #newsletter{padding:4rem 1.5rem;}
+  footer{padding:1.5rem;flex-direction:column;text-align:center;}
+  .cennik-grid{grid-template-columns:1fr 1fr;}
+  .slide-item{flex:0 0 280px;height:180px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="#" class="nav-logo">
+      <img src="logo.png" alt="Logo" id="logoImg" onerror="this.style.display='none';document.getElementById('logoFb').style.display='block'">
+      <span class="nav-logo-fb" id="logoFb">⛏ CRAFT</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#poprawki">Poprawki</a></li>
+      <li><a href="#cennik">Cennik</a></li>
+      <li><a href="#zamow">Zamów</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <div class="theme-switcher">
+      <button class="theme-btn active" data-theme="light"    title="Dzienny">☀</button>
+      <button class="theme-btn"        data-theme="dark"     title="Ciemny">◑</button>
+      <button class="theme-btn"        data-theme="night"    title="Nocny">☽</button>
+      <button class="theme-btn"        data-theme="contrast" title="Kontrast">◈</button>
+    </div>
+    <button class="btn-reg" id="openAuth">Rejestracja</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="mc.mp4" type="video/mp4">
+  </video>
+  <div class="hero-ov"></div>
+  <div class="hero-ct">
+    <div class="hero-ey">Grafiki Minecraft</div>
+    <h1 class="hero-t">CRAFT<br>MINIATURKI</h1>
+    <p class="hero-sub">Najlepsze i najtańsze miniaturki z Minecraft</p>
+    <p id="dynamic-msg">Ładowanie…</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn-s">Portfolio</a>
+      <a href="#zamow"     class="btn-o">Zamów</a>
+      <span class="badge-h">🔥 DZIŚ 20% TANIEJ</span>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="sw">
+  <div class="sh">
+    <div>
+      <p class="s-lbl">Przykładowe Prace</p>
+      <h2 class="s-title">NASZE PORTFOLIO</h2>
+    </div>
+    <a href="#zamow" class="btn-s">Zamów teraz</a>
+  </div>
+  <div class="s-rule"></div>
+
+  <p class="port-desc">
+    Każda miniaturka to <strong>precyzja piksela po pikselu</strong> — grafiki,
+    które zatrzymują wzrok, zanim widz zdąży mrugnąć. Poniżej znajdziesz nasze
+    realizacje. <strong>Wysoka jakość. Niska cena. Zero kompromisów. Poprawki gratis.</strong>
+  </p>
+
+  <div class="slider-ctrl">
+    <span class="slider-hint">← przeciągnij, scrolla lub użyj strzałek →</span>
+    <div class="slider-arrows">
+      <button class="sarrow" id="saL">←</button>
+      <button class="sarrow" id="saR">→</button>
+    </div>
+  </div>
+
+  <div class="slider-outer" id="sliderOuter">
+    <div class="slider-track" id="sliderTrack">
+      <div class="slide-item"><img src="thumb1.png"  alt="Miniaturka 1"  onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>01</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+      <div class="slide-item"><img src="thumb2.png"  alt="Miniaturka 2"  onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>02</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+      <div class="slide-item"><img src="thumb3.png"  alt="Miniaturka 3"  onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>03</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+      <div class="slide-item"><img src="thumb4.png"  alt="Miniaturka 4"  onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>04</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+      <div class="slide-item"><img src="thumb5.png"  alt="Miniaturka 5"  onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>05</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+      <div class="slide-item"><img src="thumb6.png"  alt="Miniaturka 6"  onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>06</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+      <div class="slide-item"><img src="thumb7.png"  alt="Miniaturka 7"  onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>07</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+      <div class="slide-item"><img src="thumb8.png"  alt="Miniaturka 8"  onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>08</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+      <div class="slide-item"><img src="thumb9.png"  alt="Miniaturka 9"  onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>09</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+      <div class="slide-item"><img src="thumb10.png" alt="Miniaturka 10" onerror="this.outerHTML='<div class=slide-ph><div class=slide-ph-n>10</div><div class=slide-ph-l>Miniaturka</div></div>'"></div>
+    </div>
+  </div>
+  <div class="slider-dots" id="sliderDots"></div>
+</section>
+
+<!-- POPRAWKI -->
+<section id="poprawki" class="sw alt">
+  <div class="sh">
+    <div>
+      <p class="s-lbl">Gwarancja Jakości</p>
+      <h2 class="s-title">POPRAWKI NIC NIE KOSZTUJĄ</h2>
+    </div>
+  </div>
+  <div class="s-rule"></div>
+
+  <div class="ba-grid">
+    <div class="ba-card" data-ba>
+      <img class="ba-base" src="th1.png" alt="Przed" onerror="this.style.background='#1a1a1a'">
+      <div class="ba-clip"><img src="poprth1.png" alt="Po" onerror="this.style.background='#555'"></div>
+      <div class="ba-line"><div class="ba-handle">⇔</div></div>
+      <span class="ba-lbl ba-lbl-b">Przed</span><span class="ba-lbl ba-lbl-a">Po</span>
+    </div>
+    <div class="ba-card" data-ba>
+      <img class="ba-base" src="th2.png" alt="Przed" onerror="this.style.background='#1a1a1a'">
+      <div class="ba-clip"><img src="poprth2.png" alt="Po" onerror="this.style.background='#555'"></div>
+      <div class="ba-line"><div class="ba-handle">⇔</div></div>
+      <span class="ba-lbl ba-lbl-b">Przed</span><span class="ba-lbl ba-lbl-a">Po</span>
+    </div>
+    <div class="ba-card" data-ba>
+      <img class="ba-base" src="th3.png" alt="Przed" onerror="this.style.background='#1a1a1a'">
+      <div class="ba-clip"><img src="poprth3.png" alt="Po" onerror="this.style.background='#555'"></div>
+      <div class="ba-line"><div class="ba-handle">⇔</div></div>
+      <span class="ba-lbl ba-lbl-b">Przed</span><span class="ba-lbl ba-lbl-a">Po</span>
+    </div>
+    <div class="ba-card" data-ba>
+      <img class="ba-base" src="th4.png" alt="Przed" onerror="this.style.background='#1a1a1a'">
+      <div class="ba-clip"><img src="poprth4.png" alt="Po" onerror="this.style.background='#555'"></div>
+      <div class="ba-line"><div class="ba-handle">⇔</div></div>
+      <span class="ba-lbl ba-lbl-b">Przed</span><span class="ba-lbl ba-lbl-a">Po</span>
+    </div>
+  </div>
+
+  <p class="ba-text">
+    <strong>Nie płacisz za poprawki — nigdy.</strong> Każde zamówienie objęte jest nieograniczoną
+    liczbą poprawek aż do Twojej pełnej satysfakcji. To nie slogan — to moja polityka pracy.
+    Właśnie dlatego klienci wracają i polecają mnie dalej.
+  </p>
+</section>
+
+<!-- CENNIK -->
+<section id="cennik" class="sw">
+  <div class="sh">
+    <div>
+      <p class="s-lbl">Przejrzyste ceny</p>
+      <h2 class="s-title">CENNIK</h2>
+    </div>
+  </div>
+  <div class="s-rule"></div>
+
+  <div class="cennik-grid">
+    <div class="c-item">
+      <div class="c-lbl">Miniaturki</div>
+      <div class="c-price">25<sub>zł</sub></div>
+      <button class="btn-o" onclick="openDiscount(25,'Miniaturki')">Przelicz Rabat</button>
+    </div>
+    <div class="c-item">
+      <div class="c-lbl">Banner YouTube</div>
+      <div class="c-price">70<sub>zł</sub></div>
+      <button class="btn-o" onclick="openDiscount(70,'Banner YouTube')">Przelicz Rabat</button>
+    </div>
+    <div class="c-item">
+      <div class="c-lbl">Logo</div>
+      <div class="c-price">100<sub>zł</sub></div>
+      <button class="btn-o" onclick="openDiscount(100,'Logo')">Przelicz Rabat</button>
+    </div>
+    <div class="c-item">
+      <div class="c-lbl">Logo Rysowane</div>
+      <div class="c-price">75<sub>zł</sub></div>
+      <button class="btn-o" onclick="openDiscount(75,'Logo Rysowane')">Przelicz Rabat</button>
+    </div>
+    <div class="c-item">
+      <div class="c-lbl">Banner Discord</div>
+      <div class="c-price">50<sub>zł</sub></div>
+      <button class="btn-o" onclick="openDiscount(50,'Banner Discord')">Przelicz Rabat</button>
+    </div>
+    <div class="c-item">
+      <div class="c-lbl">Inne Grafiki</div>
+      <div class="c-price" style="font-size:1.6rem;line-height:1.2;letter-spacing:.01em;">Wycena<br>własna</div>
+      <a href="#zamow" class="btn-s">Zapytaj</a>
+    </div>
+  </div>
+
+  <div class="c-bottom">
+    <a href="#zamow" class="btn-s">Zamów</a>
+    <span class="badge-c">🔥 20% RABAT DZIŚ</span>
+  </div>
+</section>
+
+<!-- DISCOUNT MODAL -->
+<div class="modal-ov" id="discountModal">
+  <div class="modal-box">
+    <button class="modal-x" onclick="closeDiscount()">✕</button>
+    <h3 class="modal-t" id="modalTitle">PRZELICZ RABAT</h3>
+    <p class="modal-b">Cena bazowa: <strong id="modalBase">—</strong></p>
+    <div class="modal-row">
+      <input class="modal-in" type="number" id="discountInput" placeholder="Wpisz % rabatu (np. 20)" min="0" max="100">
+      <button class="btn-s" onclick="calcDiscount()">Przelicz</button>
+    </div>
+    <div class="modal-res" id="discountResult"></div>
+    <a href="#zamow" class="btn-s" onclick="closeDiscount()" style="width:100%;text-align:center;display:block;">Zamów teraz</a>
+  </div>
+</div>
+
+<!-- ZAMÓW -->
+<section id="zamow" class="sw alt">
+  <div class="sh">
+    <div>
+      <p class="s-lbl">Kontakt</p>
+      <h2 class="s-title">ZAMÓW</h2>
+    </div>
+  </div>
+  <div class="s-rule"></div>
+
+  <p class="z-intro">
+    Opisz czego potrzebujesz — wrócę do Ciebie ekspresowo. Zamówienia realizuję
+    szybko i z pełnym zaangażowaniem.
+    <strong>Poprawki gratis. Jakość gwarantowana. Żadnych ukrytych kosztów.</strong>
+  </p>
+
+  <div class="zamow-grid">
+    <div>
+      <div class="fg">
+        <label class="fl" for="cEmail">Adres e-mail</label>
+        <input class="fi" type="email" id="cEmail" placeholder="twoj@email.com">
+      </div>
+      <div class="fg">
+        <label class="fl" for="cMsg">Treść wiadomości</label>
+        <textarea class="ft" id="cMsg" placeholder="Co zamawiasz? Podaj szczegóły, termin, preferencje…"></textarea>
+      </div>
+      <button class="btn-s" onclick="sendForm()">Wyślij ✉</button>
+      <div class="f-ok" id="formOk">✓ Wiadomość wysłana! Odezwę się jak najszybciej.</div>
+    </div>
+    <div>
+      <p style="font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;">Znajdź mnie na:</p>
+      <div class="soc-list">
+        <a href="#" class="soc-btn"><span class="si">💬</span> Discord</a>
+        <a href="#" class="soc-btn"><span class="si">𝕏</span> Twitter / X</a>
+        <a href="#" class="soc-btn"><span class="si">📘</span> Facebook</a>
+        <a href="#" class="soc-btn"><span class="si">📸</span> Instagram</a>
+        <a href="#" class="soc-btn"><span class="si">▶</span> YouTube</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <h2 class="nl-t">ZAPISZ SIĘ — ODBIERZ <span style="text-decoration:underline;">30% ZNIŻKI</span></h2>
+  <p class="nl-s">Dołącz do newslettera i otrzymaj ekskluzywny kod rabatowy na pierwsze zamówienie.</p>
+  <div class="nl-form">
+    <input class="nl-in" type="email" id="nlEmail" placeholder="Twój adres e-mail">
+    <button class="nl-btn" onclick="nlSub()">Zapisz się</button>
+  </div>
+  <div id="nlOk">✓ Jesteś na liście! Sprawdź skrzynkę.</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="f-copy">© 2025 CRAFT MINIATURKI — <a href="https://prizmpage.pl" target="_blank">PAGE MADE BY PRIZM PAGES</a></p>
+  <ul class="f-links">
+    <li><a href="regulamin.html">Regulamin</a></li>
+    <li><a href="polityka.html">Polityka Prywatności</a></li>
+    <li><a href="#zamow">Kontakt</a></li>
+  </ul>
+</footer>
+
+<!-- AUTH MODAL -->
+<div class="auth-ov" id="authOv">
+  <div class="auth-box">
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabL" onclick="sw('login')">Logowanie</button>
+      <button class="auth-tab"        id="tabR" onclick="sw('reg')">Rejestracja</button>
+    </div>
+    <button class="auth-xbtn" onclick="closeAuth()">✕</button>
+
+    <div class="auth-panel active" id="panelL">
+      <h2 class="auth-h">ZALOGUJ SIĘ</h2>
+      <p class="auth-s">Witaj z powrotem. Wpisz swoje dane.</p>
+      <div class="a-fg"><label class="a-fl">E-mail lub Login</label><input class="a-fi" type="text" placeholder="email@example.com lub login"></div>
+      <div class="a-fg"><label class="a-fl">Hasło</label><input class="a-fi" type="password" placeholder="••••••••"></div>
+      <button class="btn-s" style="width:100%;text-align:center;margin-top:.4rem;">Zaloguj się</button>
+      <div class="auth-sep"><span>lub</span></div>
+      <p class="auth-foot">Nie masz konta? <a href="#" onclick="sw('reg')">Zarejestruj się</a></p>
+    </div>
+
+    <div class="auth-panel" id="panelR">
+      <h2 class="auth-h">UTWÓRZ KONTO</h2>
+      <p class="auth-s">Dołącz i śledź swoje zamówienia.</p>
+      <div class="a-fg"><label class="a-fl">Adres e-mail</label><input class="a-fi" type="email" placeholder="twoj@email.com"></div>
+      <div class="a-fg"><label class="a-fl">Login</label><input class="a-fi" type="text" placeholder="unikalna nazwa użytkownika"></div>
+      <div class="a-fg"><label class="a-fl">Hasło</label><input class="a-fi" type="password" placeholder="minimum 8 znaków"></div>
+      <div class="a-fg"><label class="a-fl">Powtórz hasło</label><input class="a-fi" type="password" placeholder="••••••••"></div>
+      <button class="btn-s" style="width:100%;text-align:center;margin-top:.4rem;">Zarejestruj się</button>
+      <p class="auth-foot" style="margin-top:1rem;">Masz konto? <a href="#" onclick="sw('login')">Zaloguj się</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* THEME */
+document.querySelectorAll('.theme-btn').forEach(b => b.addEventListener('click', () => {
+  document.documentElement.setAttribute('data-theme', b.dataset.theme);
+  document.querySelectorAll('.theme-btn').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+}));
+
+/* DYNAMIC MSG */
+function plHour() {
+  const d = new Date(), m = d.getUTCMonth()+1;
+  return (d.getUTCHours() + (m >= 4 && m <= 10 ? 2 : 1)) % 24;
+}
+function updateMsg() {
+  document.getElementById('dynamic-msg').textContent = plHour() < 13
+    ? '⚡ Zamów już teraz, a dziś będziesz miał gotowe!'
+    : '⚡ Zamów już teraz, a wykonam jak najszybciej będę mógł!';
+}
+updateMsg(); setInterval(updateMsg, 60000);
+
+/* ── SLIDER ── */
+(function(){
+  const outer  = document.getElementById('sliderOuter');
+  const track  = document.getElementById('sliderTrack');
+  const dotsEl = document.getElementById('sliderDots');
+  const items  = Array.from(track.querySelectorAll('.slide-item'));
+  const CARD   = 380;
+  const GAP    = 18;
+  const STEP   = CARD + GAP;
+  let cur = Math.floor(items.length / 2);
+  let dragging = false, sx = 0, moved = false;
+
+  /* build dots */
+  items.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'sdot'; d.setAttribute('aria-label', `Slajd ${i+1}`);
+    d.onclick = () => go(i);
+    dotsEl.appendChild(d);
+  });
+  const dots = dotsEl.querySelectorAll('.sdot');
+
+  function render() {
+    const w  = outer.offsetWidth;
+    const tx = w/2 - CARD/2 - cur*STEP;
+    track.style.transform = `translateX(${tx}px)`;
+    items.forEach((s,i)  => s.classList.toggle('is-active', i===cur));
+    dots.forEach((d,i)   => d.classList.toggle('active',    i===cur));
+    /* fix ba-clip img width */
+    document.querySelectorAll('.ba-clip img').forEach(img => {
+      img.style.width = img.closest('.ba-card').offsetWidth + 'px';
+    });
+  }
+  function go(i){ cur = Math.max(0, Math.min(items.length-1, i)); render(); }
+
+  render();
+  window.addEventListener('resize', render);
+
+  document.getElementById('saL').onclick = () => go(cur-1);
+  document.getElementById('saR').onclick = () => go(cur+1);
+  document.addEventListener('keydown', e => {
+    if(e.key==='ArrowLeft') go(cur-1);
+    if(e.key==='ArrowRight') go(cur+1);
+  });
+
+  /* drag */
+  outer.addEventListener('mousedown', e => { dragging=true; sx=e.clientX; moved=false; track.style.transition='none'; });
+  window.addEventListener('mousemove', e => { if(dragging && Math.abs(e.clientX-sx)>8) moved=true; });
+  window.addEventListener('mouseup', e => {
+    if(!dragging) return; dragging=false; track.style.transition='';
+    if(moved){ const d=e.clientX-sx; if(d<-50) go(cur+1); else if(d>50) go(cur-1); else render(); }
+  });
+
+  /* touch */
+  outer.addEventListener('touchstart', e => { sx=e.touches[0].clientX; moved=false; }, {passive:true});
+  outer.addEventListener('touchmove',  e => { if(Math.abs(e.touches[0].clientX-sx)>8) moved=true; }, {passive:true});
+  outer.addEventListener('touchend', e => {
+    if(!moved) return;
+    const d=e.changedTouches[0].clientX-sx;
+    if(d<-50) go(cur+1); else if(d>50) go(cur-1);
+  });
+
+  /* scroll wheel */
+  outer.addEventListener('wheel', e => {
+    e.preventDefault();
+    if(e.deltaY>0) go(cur+1); else go(cur-1);
+  }, {passive:false});
+})();
+
+/* ── BEFORE/AFTER ── */
+document.querySelectorAll('[data-ba]').forEach(card => {
+  const clip = card.querySelector('.ba-clip');
+  const line = card.querySelector('.ba-line');
+  const img  = clip.querySelector('img');
+
+  function syncW(){ if(img) img.style.width = card.offsetWidth+'px'; }
+  syncW(); window.addEventListener('resize', syncW);
+
+  function setP(cx){
+    const r = card.getBoundingClientRect();
+    let p = Math.max(1, Math.min(99, (cx-r.left)/r.width*100));
+    clip.style.width = p+'%';
+    line.style.left  = p+'%';
+  }
+  let on=false;
+  line.addEventListener('mousedown', e=>{ on=true; e.preventDefault(); });
+  window.addEventListener('mouseup', ()=>on=false);
+  window.addEventListener('mousemove', e=>{ if(on) setP(e.clientX); });
+  line.addEventListener('touchstart', e=>{ on=true; e.preventDefault(); },{passive:false});
+  window.addEventListener('touchend', ()=>on=false);
+  window.addEventListener('touchmove', e=>{ if(on) setP(e.touches[0].clientX); });
+});
+
+/* ── DISCOUNT MODAL ── */
+let mBase=0;
+function openDiscount(p,n){
+  mBase=p;
+  document.getElementById('modalTitle').textContent='PRZELICZ RABAT — '+n.toUpperCase();
+  document.getElementById('modalBase').textContent=p+' zł';
+  document.getElementById('discountResult').textContent='';
+  document.getElementById('discountInput').value='';
+  document.getElementById('discountModal').classList.add('open');
+}
+function closeDiscount(){ document.getElementById('discountModal').classList.remove('open'); }
+function calcDiscount(){
+  const pct=parseFloat(document.getElementById('discountInput').value);
+  const el=document.getElementById('discountResult');
+  if(isNaN(pct)||pct<0||pct>100){el.textContent='⚠ Podaj 0–100';return;}
+  el.textContent=`PO RABACIE ${pct}%: ${(mBase*(1-pct/100)).toFixed(2)} ZŁ`;
+}
+document.getElementById('discountModal').addEventListener('click',e=>{ if(e.target.id==='discountModal') closeDiscount(); });
+
+/* ── FORM ── */
+function sendForm(){
+  const e=document.getElementById('cEmail').value.trim();
+  const m=document.getElementById('cMsg').value.trim();
+  if(!e||!m){alert('Wypełnij e-mail i wiadomość.');return;}
+  document.getElementById('formOk').style.display='block';
+  document.getElementById('cEmail').value=''; document.getElementById('cMsg').value='';
+  setTimeout(()=>document.getElementById('formOk').style.display='none',5000);
+}
+
+/* ── NEWSLETTER ── */
+function nlSub(){
+  const v=document.getElementById('nlEmail').value.trim();
+  if(!v||!v.includes('@')){alert('Podaj poprawny e-mail.');return;}
+  document.getElementById('nlEmail').value='';
+  document.getElementById('nlOk').style.display='block';
+}
+
+/* ── AUTH ── */
+document.getElementById('openAuth').addEventListener('click',()=>document.getElementById('authOv').classList.add('open'));
+function closeAuth(){ document.getElementById('authOv').classList.remove('open'); }
+function sw(m){
+  document.getElementById('panelL').classList.toggle('active',m==='login');
+  document.getElementById('panelR').classList.toggle('active',m==='reg');
+  document.getElementById('tabL').classList.toggle('active',m==='login');
+  document.getElementById('tabR').classList.toggle('active',m==='reg');
+}
+document.getElementById('authOv').addEventListener('click',e=>{ if(e.target.id==='authOv') closeAuth(); });
+</script>
+</body>
+</html>
